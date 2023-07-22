@@ -8,15 +8,15 @@
     "tsConfigPath": "apps/api/tsconfig.app.json"
   },
   "monorepo": true,
-  "root": "apps/api",
+  "root": "apps/gateway",
   "projects": {
-    "api": {
+    "gateway": {
       "type": "application",
-      "root": "apps/api",
+      "root": "apps/gateway",
       "entryFile": "main",
-      "sourceRoot": "apps/api/src",
+      "sourceRoot": "apps/gateway/src",
       "compilerOptions": {
-        "tsConfigPath": "apps/api/tsconfig.app.json"
+        "tsConfigPath": "apps/gateway/tsconfig.app.json"
       }
     },
     "auth": {
