@@ -1,8 +1,9 @@
 import { Controller, Get, Inject } from "@nestjs/common";
+import { ConfigService } from "@nestjs/config";
 import { ClientProxy, RmqRecordBuilder } from "@nestjs/microservices";
 
 @Controller()
-export class AppController {
+export class AuthController {
   constructor(
     @Inject("AUTH_SERVICE") private readonly authService: ClientProxy,
   ) {}
