@@ -1,12 +1,19 @@
 import { NestFactory } from "@nestjs/core";
+import {
+  FastifyAdapter,
+  NestFastifyApplication,
+} from "@nestjs/platform-fastify";
 import { AuthModule } from "./auth.module";
 import { ConfigService } from "@nestjs/config";
 import { MicroserviceOptions, Transport } from "@nestjs/microservices";
 
 async function bootstrap() {
-  const app = await NestFactory.create(AuthModule);
-  const configService = app.get(ConfigService);
+  const app = await NestFactory.create<NestFastifyApplication>(
+    AuthModule,
+    new FastifyAdapter(),
+  );
 
+  const configService = app.get(ConfigService);
   const USER = configService.get("RABBITMQ_USER");
   const PASS = configService.get("RABBITMQ_PASS");
   const HOST = configService.get("RABBITMQ_HOST");
