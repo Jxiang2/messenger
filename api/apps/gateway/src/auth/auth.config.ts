@@ -2,8 +2,10 @@ import { Provider } from "@nestjs/common";
 import { ConfigService } from "@nestjs/config";
 import { ClientProxyFactory, Transport } from "@nestjs/microservices";
 
-export const AUTH_SERVICE_PROVIDER: Provider = {
-  provide: "AUTH_SERVICE",
+const NAME = "AUTH_SERVICE";
+
+const AUTH_SERVICE_PROVIDER: Provider = {
+  provide: NAME,
   inject: [ConfigService],
   useFactory: (configService: ConfigService) => {
     const USER = configService.get("RABBITMQ_USER");
@@ -22,3 +24,8 @@ export const AUTH_SERVICE_PROVIDER: Provider = {
     });
   },
 };
+
+export const AUTH_SERVICE = {
+  NAME: NAME,
+  PROVIDER: AUTH_SERVICE_PROVIDER,
+}; 

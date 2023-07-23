@@ -9,7 +9,7 @@ import {
 
 @Controller()
 export class AuthController {
-  constructor(private readonly authSerivce: AuthService) {}
+  constructor(readonly authSerivce: AuthService) {}
 
   @MessagePattern({ cmd: "get-user" })
   async getUser(@Payload() data: string, @Ctx() ctx: RmqContext) {

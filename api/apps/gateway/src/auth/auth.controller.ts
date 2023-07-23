@@ -1,12 +1,10 @@
 import { Controller, Get, Inject } from "@nestjs/common";
-import { ConfigService } from "@nestjs/config";
 import { ClientProxy, RmqRecordBuilder } from "@nestjs/microservices";
+import { AUTH_SERVICE } from "./auth.config";
 
 @Controller()
 export class AuthController {
-  constructor(
-    @Inject("AUTH_SERVICE") private readonly authService: ClientProxy,
-  ) {}
+  constructor(@Inject(AUTH_SERVICE.NAME) readonly authService: ClientProxy) {}
 
   @Get()
   async getUser() {
