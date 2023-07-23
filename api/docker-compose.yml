@@ -33,7 +33,7 @@ services:
     volumes:
       - .:/usr/src/app
       - /usr/src/app/node_modules
-    command: npm run start:dev auth
+    command: npm run start auth
 
   gateway:
     build:
@@ -49,4 +49,4 @@ services:
     volumes:
       - .:/usr/src/app
       - /usr/src/app/node_modules
-    command: npm run start:dev gateway
+    command: npm run start gateway
