@@ -1,4 +1,4 @@
-version: '3.8'
+version: '3'
 services:
   rabbitmq:
     image: rabbitmq:3-management
@@ -7,7 +7,36 @@ services:
     volumes:
       - /var/lib/rabbitmq
     ports:
-      - '5672:5672' # server
-      - '15672:15672' # gui
+      - '5672:5672'
+      - '15672:15672'
     env_file:
       - .env
+
+  auth:
+    build:
+      context: ./
+      dockerfile: ./apps/auth/Dockerfile
+    env_file:
+      - .env
+    depends_on:
+      - rabbitmq
+    volumes:
+      - .:/usr/src/app
+      - /usr/src/app/node_modules
+    command: npm run start:dev auth
+
+  gateway:
+    build:
+      context: ./
+      dockerfile: ./apps/gateway/Dockerfile
+    ports:
+      - '3000:3000'
+    env_file:
+      - .env
+    depends_on:
+      - rabbitmq
+      - auth
+    volumes:
+      - .:/usr/src/app
+      - /usr/src/app/node_modules
+    command: npm run start:dev gateway
