@@ -7,8 +7,13 @@ export class AuthController {
   constructor(@Inject(AUTH_SERVICE.NAME) readonly authService: ClientProxy) {}
 
   @Get()
-  async getUser() {
+  getUser() {
     const payload = new RmqRecordBuilder("Hello").build();
-    return this.authService.send({ cmd: "get-user" }, payload);
+    const result = this.authService.send<{ user: string }>(
+      { cmd: "get-user" },
+      payload,
+    );
+
+    return result;
   }
 }

@@ -12,12 +12,11 @@ export class AuthController {
   constructor(readonly authSerivce: AuthService) {}
 
   @MessagePattern({ cmd: "get-user" })
-  async getUser(@Payload() data: string, @Ctx() ctx: RmqContext) {
+  getUser(@Payload() data: string, @Ctx() ctx: RmqContext) {
     const channel = ctx.getChannelRef();
     const message = ctx.getMessage();
-
     channel.ack(message);
 
-    return { user: "Hello World!" };
+    return { user: "Hello World" };
   }
 }
