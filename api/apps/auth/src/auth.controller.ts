@@ -1,4 +1,4 @@
-import { Controller, Get } from "@nestjs/common";
+import { Controller } from "@nestjs/common";
 import { AuthService } from "./auth.service";
 import {
   Ctx,
@@ -9,7 +9,7 @@ import {
 
 @Controller()
 export class AuthController {
-  constructor(readonly authSerivce: AuthService) {}
+  constructor(readonly authService: AuthService) {}
 
   @MessagePattern({ cmd: "get-user" })
   getUser(@Payload() data: string, @Ctx() ctx: RmqContext) {
