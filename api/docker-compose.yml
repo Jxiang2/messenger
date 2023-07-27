@@ -23,7 +23,7 @@ services:
 
   auth:
     build:
-      context: ./
+      context: .
       dockerfile: ./apps/auth/Dockerfile
     env_file:
       - .env
@@ -33,11 +33,10 @@ services:
     volumes:
       - .:/usr/src/app
       - /usr/src/app/node_modules
-    command: npm run start auth
 
   gateway:
     build:
-      context: ./
+      context: .
       dockerfile: ./apps/gateway/Dockerfile
     ports:
       - "3001:3001"
@@ -49,4 +48,3 @@ services:
     volumes:
       - .:/usr/src/app
       - /usr/src/app/node_modules
-    command: npm run start gateway
