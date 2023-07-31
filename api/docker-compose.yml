@@ -1,4 +1,5 @@
-version: "3"
+version: "3.8"
+name: messenger-api
 services:
   rabbitmq:
     image: rabbitmq:3-management
@@ -14,6 +15,7 @@ services:
 
   postgres:
     image: postgres
+    container_name: postgres
     env_file:
       - .env
     ports:
@@ -22,6 +24,7 @@ services:
       - ./db/data:/var/lib/postgresql/data
 
   auth:
+    container_name: messenger-api-auth
     build:
       context: .
       dockerfile: ./apps/auth/Dockerfile
@@ -35,6 +38,7 @@ services:
       - /usr/src/app/node_modules
 
   gateway:
+    container_name: messenger-api-gateway
     build:
       context: .
       dockerfile: ./apps/gateway/Dockerfile

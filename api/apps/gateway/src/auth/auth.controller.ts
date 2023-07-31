@@ -1,19 +1,20 @@
-import { Controller, Get, Inject } from "@nestjs/common";
+import { Controller, Get, Inject, Post } from "@nestjs/common";
 import { ClientProxy, RmqRecordBuilder } from "@nestjs/microservices";
 import { AUTH_SERVICE } from "./auth.config";
 
-@Controller()
+@Controller("auth")
 export class AuthController {
   constructor(@Inject(AUTH_SERVICE.NAME) readonly authService: ClientProxy) {}
 
   @Get()
-  getUser() {
+  getUsers() {
     const payload = new RmqRecordBuilder("Hello").build();
-    const result = this.authService.send<{ user: string }>(
-      { cmd: "get-user" },
-      payload,
-    );
+    return this.authService.send<string>({ cmd: "get-users" }, payload);
+  }
 
-    return result;
+  @Post()
+  postUser() {
+    const payload = new RmqRecordBuilder("Hello").build();
+    return this.authService.send<string>({ cmd: "post-user" }, payload);
   }
 }

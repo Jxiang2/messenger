@@ -11,12 +11,21 @@ import {
 export class AuthController {
   constructor(readonly authService: AuthService) {}
 
-  @MessagePattern({ cmd: "get-user" })
-  getUser(@Payload() data: string, @Ctx() ctx: RmqContext) {
+  @MessagePattern({ cmd: "get-users" })
+  async getUser(@Payload() data: string, @Ctx() ctx: RmqContext) {
     const channel = ctx.getChannelRef();
     const message = ctx.getMessage();
     channel.ack(message);
 
-    return { user: "Hello World" };
+    return await this.authService.getUsers();
+  }
+
+  @MessagePattern({ cmd: "post-user" })
+  async postUser(@Payload() data: string, @Ctx() ctx: RmqContext) {
+    const channel = ctx.getChannelRef();
+    const message = ctx.getMessage();
+    channel.ack(message);
+
+    return await this.authService.postUser();
   }
 }
