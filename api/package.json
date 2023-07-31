@@ -15,7 +15,6 @@
     "test:cov": "jest --coverage",
     "test:debug": "node --inspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/.bin/jest --runInBand",
     "test:e2e": "jest --config ./apps/api/test/jest-e2e.json",
-
     "build:auth": "nest build auth",
     "build:gateway": "nest build gateway",
     "build": "npm run build:auth && npm run build:gateway"
@@ -30,6 +29,7 @@
     "@nestjs/platform-fastify": "^10.1.0",
     "@nestjs/platform-socket.io": "^10.1.2",
     "@nestjs/websockets": "^10.1.2",
+    "@prisma/client": "^5.0.0",
     "amqp-connection-manager": "^4.1.13",
     "amqplib": "^0.10.3",
     "bcrypt": "^5.1.0",
@@ -38,6 +38,7 @@
     "passport": "^0.6.0",
     "passport-jwt": "^4.0.1",
     "pg": "^8.11.1",
+    "prisma": "^5.0.0",
     "redis": "^4.6.7",
     "reflect-metadata": "^0.1.13",
     "rimraf": "^5.0.1",
