@@ -22,10 +22,9 @@ services:
       - .env
     depends_on:
       - rabbitmq
-      - postgres
     volumes:
       - .:/usr/src/app
-      - /usr/src/app/node_modules
+      - exclude:/usr/src/app/node_modules
 
   gateway:
     container_name: messenger-api-gateway
@@ -42,3 +41,6 @@ services:
     volumes:
       - .:/usr/src/app
       - exclude:/usr/src/app/node_modules
+
+volumes:
+    exclude:

@@ -1,13 +1,13 @@
-build:
-	docker compose build
-run:
-	docker-compose up --build
+apps:
+	docker-compose up
+generate:
+	npx prisma generate && npx prisma studio
 
 # auth
 sh-auth:
 	docker exec -it messenger-api-auth bash
-schema-auth:
-	npx prisma generate
+migrate-auth:
+	 npx prisma migrate dev --name $(name)
 
 # gateway
 sh-gateway:

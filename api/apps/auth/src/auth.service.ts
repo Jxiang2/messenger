@@ -6,13 +6,14 @@ export class AuthService {
   constructor(readonly prismaService: PrismaService) {}
 
   async getUsers() {
-    return await this.prismaService.user.findMany();
+    return this.prismaService.user.findMany();
   }
 
   async postUser() {
-    return await this.prismaService.user.create({
+    return this.prismaService.user.create({
       data: {
-        email: "321@gmail.com",
+        email: "123@gmail.com",
+        name: "hello world",
       },
     });
   }

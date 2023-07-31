@@ -17,7 +17,7 @@ export class AuthController {
     const message = ctx.getMessage();
     channel.ack(message);
 
-    return await this.authService.getUsers();
+    return this.authService.getUsers();
   }
 
   @MessagePattern({ cmd: "post-user" })
