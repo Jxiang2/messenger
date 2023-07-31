@@ -12,8 +12,7 @@ export class AuthService {
   async postUser() {
     return await this.prismaService.user.create({
       data: {
-        name: "xjy",
-        email: "123@gmail.com",
+        email: "321@gmail.com",
       },
     });
   }

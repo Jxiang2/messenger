@@ -7,7 +7,7 @@
   "license": "UNLICENSED",
   "scripts": {
     "format": "prettier --write \"apps/**/*.ts\" \"libs/**/*.ts\"",
-    "start": "nest start",
+    "start": "npx prisma generate && nest start",
     "start:debug": "nest start --debug",
     "start:prod": "node dist/apps/api/main",
     "test": "jest",
@@ -15,9 +15,9 @@
     "test:cov": "jest --coverage",
     "test:debug": "node --inspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/.bin/jest --runInBand",
     "test:e2e": "jest --config ./apps/api/test/jest-e2e.json",
+    "build": "npm run build:auth && npm run build:gateway",
     "build:auth": "nest build auth",
-    "build:gateway": "nest build gateway",
-    "build": "npm run build:auth && npm run build:gateway"
+    "build:gateway": "nest build gateway"
   },
   "dependencies": {
     "@nestjs/common": "^10.0.0",
