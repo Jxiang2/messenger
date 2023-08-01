@@ -1,6 +1,6 @@
-apps:
+run:
 	docker-compose up
-generate:
+refresh:
 	npx prisma generate && npx prisma studio
 
 # auth

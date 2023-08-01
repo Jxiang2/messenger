@@ -13,7 +13,6 @@ export class AuthService {
     return this.prismaService.user.create({
       data: {
         email: "123@gmail.com",
-        name: "hello world",
       },
     });
   }
