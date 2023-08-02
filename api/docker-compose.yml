@@ -24,7 +24,20 @@ services:
       - rabbitmq
     volumes:
       - .:/usr/src/app
-      - exclude:/usr/src/app/node_modules
+      - /usr/src/app/node_modules
+
+  presence:
+    container_name: messenger-api-presence
+    build:
+      context: .
+      dockerfile: ./apps/presence/Dockerfile
+    env_file:
+      - .env
+    depends_on:
+      - rabbitmq
+    volumes:
+      - .:/usr/src/app
+      - /usr/src/app/node_modules
 
   gateway:
     container_name: messenger-api-gateway
@@ -40,7 +53,4 @@ services:
       - auth
     volumes:
       - .:/usr/src/app
-      - exclude:/usr/src/app/node_modules
-
-volumes:
-    exclude:
+      - /usr/src/app/node_modules

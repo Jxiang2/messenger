@@ -3,18 +3,18 @@ import {
   FastifyAdapter,
   NestFastifyApplication,
 } from "@nestjs/platform-fastify";
-import { AuthModule } from "./auth.module";
+import { PresenceModule } from "./presence.module";
 import { RmqService } from "@app/shared/rmq/rmq.service";
 
 async function bootstrap() {
   const app = await NestFactory.create<NestFastifyApplication>(
-    AuthModule,
+    PresenceModule,
     new FastifyAdapter(),
   );
 
   const rmqService = app.get(RmqService);
 
-  app.connectMicroservice(rmqService.getRmqServiceConfig("AUTH_SERVICE"));
+  app.connectMicroservice(rmqService.getRmqServiceConfig("PRESENCE_SERVICE"));
 
   await app.startAllMicroservices();
 }

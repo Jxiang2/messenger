@@ -1,14 +1,8 @@
 import { Module } from "@nestjs/common";
-import { ConfigModule } from "@nestjs/config";
 import { AuthModule } from "./auth/auth.module";
+import { PresenceModule } from "./presence/presence.module";
 
 @Module({
-  imports: [
-    ConfigModule.forRoot({
-      isGlobal: true,
-      envFilePath: ".env",
-    }),
-    AuthModule,
-  ],
+  imports: [AuthModule, PresenceModule],
 })
 export class GatewayModule {}

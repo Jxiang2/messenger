@@ -6,26 +6,24 @@ import {
   Payload,
   RmqContext,
 } from "@nestjs/microservices";
+import { RmqService } from "@app/shared/rmq/rmq.service";
 
 @Controller()
 export class AuthController {
-  constructor(readonly authService: AuthService) {}
+  constructor(
+    readonly authService: AuthService,
+    readonly rmqService: RmqService,
+  ) {}
 
   @MessagePattern({ cmd: "get-users" })
   async getUser(@Payload() data: string, @Ctx() ctx: RmqContext) {
-    const channel = ctx.getChannelRef();
-    const message = ctx.getMessage();
-    channel.ack(message);
-
+    this.rmqService.ackMessage(ctx);
     return this.authService.getUsers();
   }
 
   @MessagePattern({ cmd: "post-user" })
   async postUser(@Payload() data: string, @Ctx() ctx: RmqContext) {
-    const channel = ctx.getChannelRef();
-    const message = ctx.getMessage();
-    channel.ack(message);
-
+    this.rmqService.ackMessage(ctx);
     return await this.authService.postUser();
   }
 }
