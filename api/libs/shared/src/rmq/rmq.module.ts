@@ -12,8 +12,13 @@ import { RmqService } from "@app/shared/rmq/rmq.service";
 export class RmqModule {
   static registerRmq(service: keyof typeof RMQ_SERVICE_QUEUE): DynamicModule {
     const provider: Provider = {
+      // Name of the service
       provide: service,
+
+      // Dependencies that the service needs
       inject: [ConfigService],
+
+      // Factory function that returns the service(provider)
       useFactory: (configService: ConfigService) => {
         const USER = configService.get("RABBITMQ_USER");
         const PASS = configService.get("RABBITMQ_PASS");

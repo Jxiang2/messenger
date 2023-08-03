@@ -1,4 +1,4 @@
-import { Module } from "@nestjs/common";
+import { Module, NestModule } from "@nestjs/common";
 import { AuthService } from "./auth.service";
 import { AuthController } from "./auth.controller";
 import { PrismaModule, RmqModule } from "@app/shared";

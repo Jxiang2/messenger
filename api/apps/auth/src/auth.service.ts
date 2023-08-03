@@ -16,4 +16,8 @@ export class AuthService {
       },
     });
   }
+
+  async register() {
+    return Promise.resolve(undefined);
+  }
 }
