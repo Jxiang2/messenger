@@ -17,7 +17,7 @@ export class AuthController {
 
   @Post("/register")
   register(@Body() newUser: NewUserDto) {
-    const payload = new RmqRecordBuilder().setData({ ...newUser }).build();
+    const payload = new RmqRecordBuilder<NewUserDto>().setData(newUser).build();
     return this.authService.send({ cmd: "register" }, payload);
   }
 }
