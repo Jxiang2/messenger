@@ -1,13 +1,12 @@
-import { IsEmail, IsLowercase, IsString, Length } from "class-validator";
+import { IsEmail, IsLowercase, Length } from "class-validator";
 
 const MIN_LENGTH = 1;
 const MAX_LENGTH = 20;
 
-export class NewUserDto {
+export class RegisterUserDto {
   @IsEmail()
   email!: string;
 
-  @IsString()
   @Length(MIN_LENGTH, MAX_LENGTH)
   password!: string;
 

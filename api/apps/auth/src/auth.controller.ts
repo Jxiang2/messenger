@@ -7,7 +7,7 @@ import {
   RmqContext,
 } from "@nestjs/microservices";
 import { RmqService } from "@app/shared/rmq/rmq.service";
-import { NewUserDto } from "@app/shared/dto/new-user.dto";
+import { RegisterUserDto } from "@app/shared/dto/user.dto";
 
 @Controller()
 export class AuthController {
@@ -23,8 +23,11 @@ export class AuthController {
   }
 
   @MessagePattern({ cmd: "register" })
-  async register(@Payload() newUser: NewUserDto, @Ctx() ctx: RmqContext) {
+  async register(
+    @Payload() registerUserDto: RegisterUserDto,
+    @Ctx() ctx: RmqContext,
+  ) {
     this.rmqService.ackMessage(ctx);
-    return await this.authService.register(newUser);
+    return await this.authService.register(registerUserDto);
   }
 }
