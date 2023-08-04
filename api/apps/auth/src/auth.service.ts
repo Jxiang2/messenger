@@ -10,14 +10,6 @@ export class AuthService {
     return this.prismaService.user.findMany();
   }
 
-  async postUser() {
-    return this.prismaService.user.create({
-      data: {
-        email: "123@gmail.com",
-      },
-    });
-  }
-
   async register(newUser: NewUserDto) {
     console.log("Hello world");
     return newUser;

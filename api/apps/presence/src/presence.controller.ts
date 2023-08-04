@@ -16,7 +16,7 @@ export class PresenceController {
   ) {}
 
   @MessagePattern({ cmd: "get-presences" })
-  async getUser(@Payload() data: string, @Ctx() ctx: RmqContext) {
+  async getPresences(@Payload() data: string, @Ctx() ctx: RmqContext) {
     this.rmqService.ackMessage(ctx);
 
     return this.presenceService.getPresences();
