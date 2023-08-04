@@ -22,15 +22,9 @@ export class AuthController {
     return this.authService.getUsers();
   }
 
-  @MessagePattern({ cmd: "post-user" })
-  async postUser(@Payload() data: string, @Ctx() ctx: RmqContext) {
-    this.rmqService.ackMessage(ctx);
-    return await this.authService.postUser();
-  }
-
   @MessagePattern({ cmd: "register" })
   async register(@Payload() newUser: NewUserDto, @Ctx() ctx: RmqContext) {
     this.rmqService.ackMessage(ctx);
-    return await this.authService.register();
+    return await this.authService.register(newUser);
   }
 }

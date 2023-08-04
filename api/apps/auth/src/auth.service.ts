@@ -1,5 +1,6 @@
 import { Injectable } from "@nestjs/common";
 import { PrismaService } from "@app/shared/prisma/prisma.service";
+import { NewUserDto } from "@app/shared/dto";
 
 @Injectable()
 export class AuthService {
@@ -17,7 +18,8 @@ export class AuthService {
     });
   }
 
-  async register() {
-    return Promise.resolve(undefined);
+  async register(newUser: NewUserDto) {
+    console.log("Hello world");
+    return newUser;
   }
 }
