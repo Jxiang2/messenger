@@ -1,26 +1,32 @@
-import { ArgumentsHost, ExceptionFilter } from "@nestjs/common";
-import { FastifyReply } from "fastify";
-import { GwFailureResponse, MsFailureResponse } from "./types";
+import { ArgumentsHost, ExceptionFilter, HttpStatus } from "@nestjs/common";
+import { FastifyReply, FastifyRequest } from "fastify";
+import { GeneralFailureResponse, MsFailureResponse } from "./types";
 
 export class GwExceptionFilter implements ExceptionFilter {
-  catch(exception: MsFailureResponse, host: ArgumentsHost) {
+  catch(
+    exception: MsFailureResponse | GeneralFailureResponse,
+    host: ArgumentsHost,
+  ) {
     const ctx = host.switchToHttp();
+    const request = ctx.getRequest<FastifyRequest>();
     const response = ctx.getResponse<FastifyReply>();
 
-    // @ts-ignore
-    const generalExceptionObject = exception.response;
-    const status = generalExceptionObject?.statusCode;
-    const message = generalExceptionObject?.message;
+    let status: HttpStatus;
+    let message: string[];
 
-    const exceptionObject: GwFailureResponse = {
-      ok: false,
-      status: generalExceptionObject ? status : exception.status,
-      message: generalExceptionObject ? message : [exception.message],
-    };
+    if (exception.type === "general") {
+      status = exception.response.statusCode;
+      message = exception.response.message;
+    } else {
+      status = exception.status;
+      message = exception.message;
+    }
 
     response.send({
-      ...exceptionObject,
-      timestamp: new Date().toISOString(),
-    });
+      ok: false,
+      status: status,
+      message: message,
+      url: request.url,
+    } as Partial<GeneralFailureResponse>);
   }
 }

@@ -17,7 +17,7 @@ export class AuthController {
   ) {}
 
   @MessagePattern({ cmd: "get-users" })
-  async getUser(@Payload() data: string, @Ctx() ctx: RmqContext) {
+  async getUsers(@Payload() data: string, @Ctx() ctx: RmqContext) {
     this.rmqService.ackMessage(ctx);
     return this.authService.getUsers();
   }

@@ -2,13 +2,14 @@ import { HttpStatus } from "@nestjs/common";
 
 export type MsFailureResponse = {
   status: HttpStatus;
-  message: string;
+  message: [string];
   rmq: { cmd: string };
   args: Record<string, any>;
   type: "rpc";
 };
 
-export type GeneralFailureObject = {
+export type GeneralFailureResponse = {
+  type: "general";
   response: {
     statusCode: HttpStatus;
     message: [string];
@@ -26,4 +27,5 @@ export type GwFailureResponse = {
   ok: false;
   status: HttpStatus;
   message: string[];
+  url: string;
 };

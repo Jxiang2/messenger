@@ -32,7 +32,7 @@ export class AuthService {
     const user = await this.findByEmail(email);
 
     if (user) {
-      this.response.fail(HttpStatus.CONFLICT, "TODO");
+      this.response.fail(HttpStatus.CONFLICT, ["TODO"]);
     }
 
     const savedUser = await this.prisma.user.create({

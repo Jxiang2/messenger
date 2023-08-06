@@ -12,7 +12,7 @@ export class ResponseService {
     };
   }
 
-  fail(status: HttpStatus, message: string) {
+  fail(status: HttpStatus, message: string[]) {
     throw new RpcException({ status, message });
   }
 }
