@@ -1,11 +1,15 @@
-import { Module, NestModule } from "@nestjs/common";
+import { Module } from "@nestjs/common";
 import { AuthService } from "./auth.service";
 import { AuthController } from "./auth.controller";
-import { PrismaModule, RmqModule } from "@app/shared";
+import { PrismaModule, ResponseModule, RmqModule } from "@app/shared";
+import { MsExceptionFilter } from "@app/shared/response/ms-exception.filter";
 
 @Module({
-  imports: [RmqModule, PrismaModule],
+  imports: [RmqModule, PrismaModule, ResponseModule],
   controllers: [AuthController],
-  providers: [AuthService],
+  providers: [
+    AuthService,
+    { provide: "MS_FILTER", useClass: MsExceptionFilter },
+  ],
 })
 export class AuthModule {}
