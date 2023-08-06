@@ -1,6 +1,7 @@
 import { ArgumentsHost, ExceptionFilter } from "@nestjs/common";
 import { FastifyReply } from "fastify";
 import { GwFailureResponse, MsFailureResponse } from "./types";
+
 export class GwExceptionFilter implements ExceptionFilter {
   catch(exception: MsFailureResponse, host: ArgumentsHost) {
     const ctx = host.switchToHttp();
