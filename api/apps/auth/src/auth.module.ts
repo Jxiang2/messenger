@@ -9,7 +9,7 @@ import { MsExceptionFilter } from "@app/shared/response/ms-exception.filter";
   controllers: [AuthController],
   providers: [
     AuthService,
-    { provide: "MS_FILTER", useClass: MsExceptionFilter },
+    { provide: "MS_EXCEPTION_FILTER", useClass: MsExceptionFilter },
   ],
 })
 export class AuthModule {}

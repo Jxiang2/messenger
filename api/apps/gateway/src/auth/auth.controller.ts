@@ -1,7 +1,15 @@
-import { Body, Controller, Get, Inject, Post } from "@nestjs/common";
+import {
+  Body,
+  Controller,
+  Get,
+  Inject,
+  Post,
+  UseFilters,
+} from "@nestjs/common";
 import { ClientProxy, RmqRecordBuilder } from "@nestjs/microservices";
 import { RMQ_SERVICE } from "@app/shared/rmq/constant";
 import { RegisterUserDto } from "@app/shared/dto/user.dto";
+import { GwExceptionFilter } from "@app/shared/response/gw-exception.filter";
 
 @Controller("auth")
 export class AuthController {
@@ -16,10 +24,12 @@ export class AuthController {
   }
 
   @Post("/register")
+  @UseFilters(GwExceptionFilter)
   register(@Body() newUser: RegisterUserDto) {
     const payload = new RmqRecordBuilder<RegisterUserDto>()
       .setData(newUser)
       .build();
+
     return this.authService.send({ cmd: "register" }, payload);
   }
 }

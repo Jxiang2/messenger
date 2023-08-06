@@ -1,9 +1,8 @@
 import { Module } from "@nestjs/common";
-import { MsResponseService } from "@app/shared/response/ms-response.service";
-import { GwResponseService } from "@app/shared/response/gw-response.service";
+import { ResponseService } from "@app/shared/response/response.service";
 
 @Module({
-  exports: [MsResponseService, GwResponseService],
-  providers: [MsResponseService, GwResponseService],
+  exports: [ResponseService],
+  providers: [ResponseService],
 })
 export class ResponseModule {}

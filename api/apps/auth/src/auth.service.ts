@@ -1,6 +1,8 @@
 import {
   ClassSerializerInterceptor,
+  HttpStatus,
   Injectable,
+  UseFilters,
   UseInterceptors,
 } from "@nestjs/common";
 import { PrismaService } from "@app/shared/prisma/prisma.service";
@@ -8,16 +10,14 @@ import { RegisterUserDto } from "@app/shared/dto";
 import { User } from "@prisma/client";
 import * as bcrypt from "bcrypt";
 import { RegisterUserVo } from "@app/shared/vo";
-import {
-  MsResponse,
-  MsResponseService,
-} from "@app/shared/response/ms-response.service";
+import { ResponseService } from "@app/shared/response/response.service";
+import { MsExceptionFilter } from "@app/shared/response/ms-exception.filter";
 
 @Injectable()
 export class AuthService {
   constructor(
     readonly prisma: PrismaService,
-    readonly response: MsResponseService,
+    readonly response: ResponseService,
   ) {}
 
   async getUsers() {
@@ -25,15 +25,14 @@ export class AuthService {
   }
 
   @UseInterceptors(ClassSerializerInterceptor)
-  async register(
-    newUser: RegisterUserDto,
-  ): Promise<MsResponse<RegisterUserVo>> {
+  @UseFilters(MsExceptionFilter)
+  async register(newUser: RegisterUserDto) {
     const { firstName, lastName, email, password } = newUser;
 
     const user = await this.findByEmail(email);
 
     if (user) {
-      this.response.fail("TODO");
+      this.response.fail(HttpStatus.CONFLICT, "TODO");
     }
 
     const savedUser = await this.prisma.user.create({

@@ -1,25 +1,23 @@
-import {
-  Catch,
-  RpcExceptionFilter,
-  ArgumentsHost,
-  Logger,
-} from "@nestjs/common";
+import { Catch, RpcExceptionFilter, ArgumentsHost } from "@nestjs/common";
 import { Observable, throwError } from "rxjs";
 import { RpcException } from "@nestjs/microservices";
+import { MsFailureResponse } from "./types";
 
 @Catch(RpcException)
 export class MsExceptionFilter implements RpcExceptionFilter<RpcException> {
-  private readonly logger = new Logger(MsExceptionFilter.name);
   catch(exception: RpcException, host: ArgumentsHost): Observable<any> {
-    this.logger.log("ERROR: ", exception.getError());
-    console.log("ERROR: ", exception.getError());
-
-    const args = host.getArgs();
+    const args = host.getArgByIndex(0);
+    const message = host.getArgByIndex(1).args[2];
     const type = host.getType();
 
-    this.logger.log(args);
-    this.logger.log(type);
-
-    return throwError(() => exception.getError());
+    return throwError(
+      () =>
+        ({
+          ...(exception.getError() as object),
+          rmq: message,
+          args,
+          type,
+        } as MsFailureResponse),
+    );
   }
 }
