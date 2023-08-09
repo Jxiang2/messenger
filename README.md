@@ -1,6 +1,6 @@
-# Messenger-clone
+# NestJS Microservice Structure
 
-Messenger-clone-microservice
+Boilerplate of NestJS Microservice with rabbitmq and mono-repo structure
 
 ## RabbitMQ Structure
 
