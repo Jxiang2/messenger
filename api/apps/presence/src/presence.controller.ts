@@ -7,8 +7,10 @@ import {
   RmqContext,
 } from "@nestjs/microservices";
 import { RmqService } from "@app/shared/rmq/rmq.service";
+import { ClassSerializerInterceptor, UseInterceptors } from "@nestjs/common";
 
 @Controller("presence")
+@UseInterceptors(ClassSerializerInterceptor)
 export class PresenceController {
   constructor(
     readonly presenceService: PresenceService,

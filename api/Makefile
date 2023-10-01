@@ -1,10 +1,11 @@
-run:
-	docker-compose up
 studio:
 	npx prisma generate && npx prisma studio
 migrate:
 	 npx prisma migrate dev --name $(name)
-stop:
+
+start:
+	docker-compose up
+down:
 	docker compose down
 
 # auth

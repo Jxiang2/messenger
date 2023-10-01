@@ -1,13 +1,10 @@
 import { Exclude } from "class-transformer";
 import { User } from "@prisma/client";
 
-export class RegisterUserVo implements User {
+export class RegisterUserSerializer implements User {
   id: string;
-
   firstName: string;
-
   lastName: string;
-
   email: string;
 
   @Exclude()

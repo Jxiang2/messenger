@@ -8,7 +8,8 @@ export type MsFailureResponse = {
   type: "rpc";
 };
 
-export type GeneralFailureResponse = {
+// Error from NestJS
+export type UnkwonFailureResponse = {
   type: "general";
   response: {
     statusCode: HttpStatus;

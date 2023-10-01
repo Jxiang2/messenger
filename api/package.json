@@ -1,8 +1,7 @@
 {
   "name": "api",
   "version": "0.0.1",
-  "description": "",
-  "author": "",
+  "author": "Jingyu Xiang",
   "private": true,
   "license": "UNLICENSED",
   "scripts": {

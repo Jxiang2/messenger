@@ -6,7 +6,7 @@ services:
     container_name: rabbitmq
     hostname: rabbitmq
     volumes:
-      - /var/lib/rabbitmq
+      - rabbitmq-data:/var/lib/rabbitmq
     ports:
       - "5672:5672"
       - "15672:15672"
@@ -24,7 +24,7 @@ services:
       - rabbitmq
     volumes:
       - .:/usr/src/app
-      - /usr/src/app/node_modules
+      - node_modules:/usr/src/app/node_modules
 
   presence:
     container_name: messenger-api-presence
@@ -37,7 +37,7 @@ services:
       - rabbitmq
     volumes:
       - .:/usr/src/app
-      - /usr/src/app/node_modules
+      - node_modules:/usr/src/app/node_modules
 
   gateway:
     container_name: messenger-api-gateway
@@ -53,4 +53,8 @@ services:
       - auth
     volumes:
       - .:/usr/src/app
-      - /usr/src/app/node_modules
+      - node_modules:/usr/src/app/node_modules
+
+volumes:
+  rabbitmq-data:
+  node_modules:

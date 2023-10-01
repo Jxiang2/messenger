@@ -8,8 +8,10 @@ import {
 } from "@nestjs/microservices";
 import { RmqService } from "@app/shared/rmq/rmq.service";
 import { RegisterUserDto } from "@app/shared/dto/user.dto";
+import { ClassSerializerInterceptor, UseInterceptors } from "@nestjs/common";
 
 @Controller()
+@UseInterceptors(ClassSerializerInterceptor)
 export class AuthController {
   constructor(
     readonly authService: AuthService,
@@ -28,6 +30,6 @@ export class AuthController {
     @Ctx() ctx: RmqContext,
   ) {
     this.rmqService.ackMessage(ctx);
-    return await this.authService.register(registerUserDto);
+    return this.authService.register(registerUserDto);
   }
 }

@@ -1,10 +1,10 @@
 import { ArgumentsHost, ExceptionFilter, HttpStatus } from "@nestjs/common";
 import { FastifyReply, FastifyRequest } from "fastify";
-import { GeneralFailureResponse, MsFailureResponse } from "./types";
+import { UnkwonFailureResponse, MsFailureResponse } from "./types";
 
 export class GwExceptionFilter implements ExceptionFilter {
   catch(
-    exception: MsFailureResponse | GeneralFailureResponse,
+    exception: UnkwonFailureResponse | MsFailureResponse,
     host: ArgumentsHost,
   ) {
     const ctx = host.switchToHttp();
@@ -22,11 +22,11 @@ export class GwExceptionFilter implements ExceptionFilter {
       message = exception.message;
     }
 
-    response.send({
+    response.status(status).send({
       ok: false,
       status: status,
       message: message,
       url: request.url,
-    } as Partial<GeneralFailureResponse>);
+    } as Partial<UnkwonFailureResponse>);
   }
 }
