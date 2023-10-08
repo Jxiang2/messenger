@@ -14,9 +14,11 @@
     "test:cov": "jest --coverage",
     "test:debug": "node --inspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/.bin/jest --runInBand",
     "test:e2e": "jest --config ./apps/api/test/jest-e2e.json",
-    "build": "npm run build:auth && npm run build:gateway",
+    "build": "npm run build:shared && npm run build:auth && npm run build:presence && npm run build:gateway",
     "build:auth": "nest build auth",
-    "build:gateway": "nest build gateway"
+    "build:presence": "nest build presence",
+    "build:gateway": "nest build gateway",
+    "build:shared": "nest build shared"
   },
   "dependencies": {
     "@nestjs/common": "^10.0.0",

@@ -1,9 +1,8 @@
 import { HttpStatus, Injectable } from "@nestjs/common";
+import { RegisterUserSerializer, RegisterUserDto } from "@app/shared";
 import { PrismaService } from "@app/shared/prisma/prisma.service";
-import { RegisterUserDto } from "@app/shared/dto";
 import { User } from "@prisma/client";
 import * as bcrypt from "bcrypt";
-import { RegisterUserSerializer } from "@app/shared/serializer";
 import { ResponseService } from "@app/shared/response/response.service";
 
 @Injectable()
